@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow:hidden;
+
+}
+
+.main_container {
+  margin-top:8rem;
+  height:30rem;
+  width:40rem;
+  backdrop-filter: blur(14px);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius:.2rem;
+  text-align: center;
+  overflow:none;
+}
+
+.queue {
+  height:118vh;
+  width:18rem;
+  backdrop-filter: blur(18px);
+  background-color: rgba(000, 000, 000, 0.2);
+  text-align: center;
+  position:absolute;
+  left:0;
+}
+
+@media screen and (max-width: 480px) {
+  .main_container {
+    margin-top:8rem;
+    height:33rem;
+    width:20rem;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius:.2rem;
+    text-align: center;
+    overflow:none;
+  }
+
+  .queue {
+    display:none;
+  }
+}
+
+
