@@ -4,6 +4,13 @@ import Edit from './Edit';
 import Cancel from './Cancel';
 
 function App() {
+
+  if (typeof window.ethereum !== 'undefined') {
+    console.log('MetaMask is installed!');
+  }
+  else {
+    alert("please install MetaMask")
+  }
   return (
     <div className="App">
       <Routes>
