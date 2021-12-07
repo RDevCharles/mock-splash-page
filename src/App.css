@@ -38,6 +38,20 @@
   left:0;
 }
 
+.btn1{
+  margin-top: 2rem;
+  background-color:red;
+  border: 0;
+  height: 3rem;
+  width: auto;
+  border-radius: .2rem;
+  color: white;
+  box-shadow: 1px 1px 7px black;
+  position: absolute;
+  right: 1rem;
+  top: 0rem;
+}
+
 @media screen and (max-width: 480px) {
   .main_container {
     margin-top:8rem;
