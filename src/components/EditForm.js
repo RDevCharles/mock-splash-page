@@ -1,79 +1,83 @@
-import React from 'react';
-import '../App.css';
-import { createClient } from '@supabase/supabase-js';
-import Confirmation from './Confirmation';
+import React from "react";
+import "../App.css";
+import { createClient } from "@supabase/supabase-js";
+import Confirmation from "./Confirmation";
 
-
-const supabaseUrl = 'https://kppafefdfvjgesncmlpi.supabase.co'
-const supabaseKey = process.env.REACT_APP_SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
-
+const supabaseUrl = "https://kppafefdfvjgesncmlpi.supabase.co";
+const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const EditForm = () => {
-
-  const [pickup_address_, setPickupAddress] = React.useState("");
-  const [dropoff_address_, setDropoffAddress] = React.useState("");
-  const [pickup_time_, setPickupTime] = React.useState("");
-  const [phone_number_, setPhoneNumber] = React.useState("");
-  const [recipient_phone_number_, setRPhoneNumber] = React.useState("");
+  const [secret_, setSecret] = React.useState("");
+  const [notes, setNotes] = React.useState("");
   const [confirmation, setConfirmation] = React.useState("none");
- 
-  const book_apex = async (e) => {
-    e.preventDefault();
-    await supabase
-      .from('delivery_queue')
-      .insert([
-        { pickup: pickup_address_, dropoff: dropoff_address_, pickup_time: pickup_time_, contact_number: phone_number_, r_number:recipient_phone_number_ },
-      ])
-    console.log('done');
-    setConfirmation('block');
-  }
 
-        
+  const updatr = async () => {
+    let data = await supabase
+      .from("delivery_queue")
+      .update({ notes: notes })
+      .eq("id", secret_);
+
+    console.log(data.data[0].id);
+  };
+
   return (
-    <div >
-       
-      <form style={{
-       
-        display: 'flex',
-        flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-        
-      }}>
-        <label for="appt"><h3>Shipping Info:</h3></label>
-      
+    <div>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <label for="appt">
+          <h3>Shipping Info:</h3>
+        </label>
 
-       
-        <input placeholder='Enter Secret Code' onChange={(e) => {
-          setPickupAddress(e.target.value);
-              }} className='input_'></input>
-              
-              <input placeholder='Change Pickup Address' onChange={(e) => {
-          setPickupAddress(e.target.value);
-        }} className='input_'></input>
-        
-        <input placeholder='Change Dropoff Address' onChange={(e) => {
-          setDropoffAddress(e.target.value);
-        }} className='input_'></input>
-        
-        <input placeholder='Change Contact Number' onChange={(e) => {
-          setPhoneNumber(e.target.value);
-        }} className='input_'></input>
-         
-        <input placeholder='Dropoff Phone Number' onChange={(e) => {
-          setRPhoneNumber(e.target.value);
-        }} className='input_'></input>
+        <input
+          placeholder="Enter Secret Code"
+          onChange={(e) => {
+            setSecret(e.target.value);
+          }}
+          className="input_"
+        ></input>
 
-        <button onClick={book_apex} style={{ marginTop: '2rem', backgroundColor: 'red  ', border: 0, height: '3rem', width: '8rem', borderRadius: '.2rem', color: 'white', boxShadow: '1px 1px 7px black', cursor: 'pointer' }}><h4>Confirm Change</h4></button>
-        <div style={{display:`${confirmation}`}}>
-        <Confirmation text='Your order has been changed an driver will be notified.'/>
+        <input
+          type="text"
+          placeholder="Details you want to change"
+          onChange={(e) => {
+            setNotes(e.target.value);
+          }}
+          className="input_"
+        ></input>
+
+        <button
+          onClick={updatr}
+          style={{
+            marginTop: "2rem",
+            backgroundColor: "red  ",
+            border: 0,
+            height: "3rem",
+            width: "8rem",
+            borderRadius: ".2rem",
+            color: "white",
+            boxShadow: "1px 1px 7px black",
+            cursor: "pointer",
+          }}
+        >
+          <h4>Confirm Change</h4>
+        </button>
+
+        <div style={{ display: `${confirmation}` }}>
+          <Confirmation text="Your order has been changed an driver will be notified." />
         </div>
-        </form>
-        
-     
-    
+        <div style={{ display: `${confirmation}` }}>
+          <Confirmation text="Your order has been changed an driver will be notified." />
+        </div>
+      </form>
     </div>
-   
   );
-}
+};
 
 export default EditForm;
