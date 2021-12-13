@@ -15,20 +15,25 @@ const BookingForm = () => {
   const [recipient_phone_number_, setRPhoneNumber] = React.useState("");
   const [confirmation, setConfirmation] = React.useState("none");
   const [connected_wallet, setConnectedWallet] = React.useState(null);
+  const [secret, setSecret] = React.useState("");
+  const [hash, setHash] = React.useState("");
 
   const book_apex = async (e) => {
     e.preventDefault();
-    await supabase
-      .from("delivery_queue")
-      .insert([
-        {
-          pickup: pickup_address_,
-          dropoff: dropoff_address_,
-          pickup_time: pickup_time_,
-          contact_number: phone_number_,
-          r_number: recipient_phone_number_,
-        },
-      ]);
+    await supabase.from("delivery_queue").insert([
+      {
+        pickup: pickup_address_,
+        dropoff: dropoff_address_,
+        pickup_time: pickup_time_,
+        contact_number: phone_number_,
+        r_number: recipient_phone_number_,
+        secret_code: `${
+          pickup_address_.slice(0, 2) +
+          pickup_address_.slice(0, 2) +
+          recipient_phone_number_.slice(0, 1)
+        }`,
+      },
+    ]);
     console.log("done");
     setConfirmation("block");
 
@@ -50,9 +55,21 @@ const BookingForm = () => {
           },
         ],
       })
-      .then((txHash) => console.log(txHash))
+      .then((txHash) => setHash(txHash))
       .catch((error) => console.log(error));
+    
+      const showSecret = async () => {
+        setTimeout(async () => {
+          if (hash != null) {
+            setConfirmation('block');
+          }
+        }, 3000);
+      };
+    
+    showSecret();
   };
+
+  
 
   return (
     <div>
@@ -136,7 +153,9 @@ const BookingForm = () => {
           <h4>Confirm Apex</h4>
         </button>
         <div style={{ display: `${confirmation}` }}>
-          <Confirmation text="Your Delivery Was Booked. Check your text messages for your 4 digit secret code this will be needed to release your package." />
+          <Confirmation
+            text={`Please copy your secret code. You will need it to cancel or edit your delivery.Send this to your recipient in order to rekease your parcel.\n${secret}`}
+          />
         </div>
       </form>
     </div>

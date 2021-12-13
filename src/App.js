@@ -29,7 +29,7 @@ function App() {
     const provider = await detectEthereumProvider();
     if (provider.chainId != "0xa869") {
       setConnectBtn("Wrong Network!");
-      setHomeState(<PageBlocker />)
+      setHomeState(<PageBlocker/>)
       console.log(provider.chainId);
     }
     if (provider.chainId == "0xa869") {
