@@ -27,7 +27,7 @@ const BookingForm = () => {
         pickup_time: pickup_time_,
         contact_number: phone_number_,
         r_number: recipient_phone_number_,
-        secret_code: `${
+        id: `${
           pickup_address_.slice(0, 2) +
           pickup_address_.slice(0, 2) +
           recipient_phone_number_.slice(0, 1)
@@ -62,6 +62,11 @@ const BookingForm = () => {
         setTimeout(async () => {
           if (hash != null) {
             setConfirmation('block');
+            setSecret(`${
+              pickup_address_.slice(0, 2) +
+              pickup_address_.slice(0, 2) +
+              recipient_phone_number_.slice(0, 1)
+            }`)
           }
         }, 3000);
       };
