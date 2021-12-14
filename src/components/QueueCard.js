@@ -4,8 +4,8 @@ const QueueCard = () => {
         <div className='queue_card'>
             <Link to='edit'><a href='#'><h3 style={{ marginTop: '2rem' }}>Edit Delivery</h3></a></Link>
             <Link to='cancel'><a href='#'><h3 style={{ marginTop: '2rem' }}>Cancel Delivery</h3></a></Link>
-            <a href='#'><h3 style={{marginTop:'2rem'}}>Discord</h3></a>
-    <a href='#'><h3 style={{marginTop:'2rem'}}>About</h3></a>
+            <a href='https://discord.gg/ZbxVdArJ'><h3 style={{marginTop:'2rem'}}>Discord</h3></a>
+    <a href='https://www.gitbook.com/?utm_source=content&utm_medium=trademark&utm_campaign=-MV4hwONledQK5nEDaUc-887967055'><h3 style={{marginTop:'2rem'}}>About</h3></a>
     
         </div>
     )

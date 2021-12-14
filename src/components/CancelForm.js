@@ -8,27 +8,14 @@ const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const CancelForm = () => {
-  const [pickup_address_, setPickupAddress] = React.useState("");
-
   const [secret_, setSecret] = React.useState("");
-  const [addy, setAddy] = React.useState("");
-
   const [confirmation, setConfirmation] = React.useState("none");
-
-  const get_connected_address = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    const account = await accounts[0];
-
-    setAddy(await account);
-    console.log(addy);
-  };
-
   const deletr = async (e) => {
     e.preventDefault();
-
-    let data = await supabase.from("delivery_queue").delete().eq("id", addy);
+    supabase.from("delivery_queue").delete().eq("id", secret_);
+    setTimeout(async () => {
+      setConfirmation("block");
+    }, 3000);
   };
 
   return (
@@ -44,7 +31,7 @@ const CancelForm = () => {
         <input
           placeholder="Enter Secret Code"
           onChange={(e) => {
-            setPickupAddress(e.target.value);
+            setSecret(e.target.value);
           }}
           className="input_"
         ></input>
