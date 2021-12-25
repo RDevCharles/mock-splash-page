@@ -2,8 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Edit from "./Edit";
-import Cancel from "./Cancel";
 import About from "./About";
+import Signup from "./Signup";
 import PageBlocker from "../src/components/PageBlocker";
 import detectEthereumProvider from "@metamask/detect-provider";
 
@@ -30,7 +30,7 @@ function App() {
     if (provider.chainId != "0xa869") {
       setConnectBtn("Wrong Network!");
       setHomeState(<PageBlocker/>)
-      console.log(provider.chainId);
+      {/*console.log(provider.chainId);*/ }
     }
     if (provider.chainId == "0xa869") {
       setConnectBtn(account.slice(0, 4) + "...." + account.slice(38, 42));
@@ -52,11 +52,12 @@ function App() {
       <button className="btn1" onClick={get_connected_address}>
         <h4>{connect_btn_state}</h4>
       </button>
+   
       <Routes>
         <Route path="/" element={home_state} />
         <Route path="/edit" element={<Edit />} />
-        <Route path="/cancel" element={<Cancel />} />
         <Route path="/about" element={<About />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );

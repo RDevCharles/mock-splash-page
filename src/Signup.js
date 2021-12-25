@@ -1,64 +1,56 @@
 import React from "react";
-import "../App.css";
+import "./App.css";
+
 import { createClient } from "@supabase/supabase-js";
-import Confirmation from "./Confirmation";
+import Confirmation from "./components/Confirmation";
 
 const supabaseUrl = "https://kppafefdfvjgesncmlpi.supabase.co";
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const EditForm = () => {
-  const [secret_, setSecret] = React.useState("");
-  const [notes, setNotes] = React.useState("");
-  const [confirmation, setConfirmation] = React.useState("none");
+const Signup = () => {
+  // Password state changes
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
-  const updatr = async () => {
-    try {
-      await supabase
-      .from("delivery_queue")
-      .update({ notes: notes })
-        .eq("id", secret_);
-      setConfirmation("block");
-    }
-    catch (e) {
-      window.alert(e.message)
-    }
-   
+  const signup = async () => {
+    await supabase.auth.signIn({ email: email, password: password });
   };
 
   return (
-    <div>
+    <div className="main_container">
       <form
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: "8rem",
         }}
       >
         <label for="appt">
-          <h3>Shipping Info:</h3>
+          <h3>Signup</h3>
         </label>
 
         <input
-          placeholder="Enter Secret Code"
+          placeholder="email"
           onChange={(e) => {
-            setSecret(e.target.value);
+            setEmail(e.target.value);
           }}
           className="input_"
         ></input>
 
         <input
-          type="text"
-          placeholder="Details you want to change"
+          type="password"
+          placeholder="password"
           onChange={(e) => {
-            setNotes(e.target.value);
+            setPassword(e.target.value);
           }}
           className="input_"
         ></input>
 
         <button
-          onClick={updatr}
+          onClick={signup}
           style={{
             marginTop: "2rem",
             backgroundColor: "red  ",
@@ -71,15 +63,11 @@ const EditForm = () => {
             cursor: "pointer",
           }}
         >
-          <h4>Confirm Change</h4>
+          <h4>Send Login Link</h4>
         </button>
-
-        <div style={{ display: `${confirmation}` }}>
-          <Confirmation text="Your order has been changed an driver will be notified." />
-        </div>
       </form>
     </div>
   );
 };
 
-export default EditForm;
+export default Signup;

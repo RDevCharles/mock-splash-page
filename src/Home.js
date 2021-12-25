@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
-import detectEthereumProvider from "@metamask/detect-provider";
 import BookingForm from "./components/BookingForm";
-import VisualQueue from "./components/VisualQueue";
+import SideBar from "./components/SideBar";
 
 const Home = () => {
   return (
     <>
-      <VisualQueue />
+      <SideBar />
 
       <div className="main_container">
         <h3>Delivery Cost: $25 USD in AVAX</h3>

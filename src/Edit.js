@@ -9,6 +9,7 @@ const Edit = () => {
           <h3 style={{ marginTop: "4rem" }}>
             Only Enter Details You Want To Change
           </h3>
+          <h6>If you wish to cancel your shipment just type "cancel" and you will be refunded shortly.</h6>
 
           <EditForm />
         </div>
