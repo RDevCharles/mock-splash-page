@@ -13,7 +13,7 @@ const BookingForm = () => {
   const [pickup_time_, setPickupTime] = React.useState("");
   const [phone_number_, setPhoneNumber] = React.useState("");
   const [recipient_phone_number_, setRPhoneNumber] = React.useState("");
-  const [confirmation, setConfirmation] = React.useState("none");
+  const [confirmation, setConfirmation] = React.useState(0);
   const [connected_wallet, setConnectedWallet] = React.useState(null);
   const [secret, setSecret] = React.useState("");
   const [bookingStatus, setBookingStatus] = React.useState("");
@@ -38,26 +38,9 @@ const BookingForm = () => {
         },
       ]);
    
-    setAlertText(
-      `Please copy your secret code. You will need it to cancel or edit your delivery.Send this to your recipient in order to release your parcel.\n${secret}`
-    );
-    setSecret(
-      `${
-        pickup_address_.slice(0, 2) +
-        pickup_address_.slice(0, 2) +
-        recipient_phone_number_.slice(0, 3)
-      }`
-    );
-
-    setAlertColor("Black");
-    
-          setConfirmation("block");
    
-    
-    
 
-    
-      
+    setAlertColor("Black");  
   }
 
   const book_apex = async (e) => {
@@ -94,6 +77,26 @@ const BookingForm = () => {
        window.alert(error.message);
       })*/;
   };
+
+  const showSecret = async (e) => {
+    e.preventDefault();
+    setAlertText(
+      `Please copy your secret code. You will need it to cancel or edit your delivery.Send this to your recipient in order to release your parcel.\n${secret}`
+    );
+    setSecret(
+      `${
+        pickup_address_.slice(0, 2) +
+        pickup_address_.slice(0, 2) +
+        recipient_phone_number_.slice(0, 3)
+      }`
+    );
+    setTimeout(() => {
+     
+// fix timing here
+        setConfirmation(1);
+    }, 5000);
+  };
+
 
   return (
     <div>
@@ -176,7 +179,24 @@ const BookingForm = () => {
         >
           <h4>Confirm Apex</h4>
         </button>
-        <div style={{ display: `${confirmation}`, position:'relative', bottom: "8rem"}}>
+
+        <button
+          onClick={showSecret}
+          style={{
+            marginTop: "2rem",
+            backgroundColor: "red  ",
+            border: 0,
+            height: "3rem",
+            width: "8rem",
+            borderRadius: ".2rem",
+            color: "white",
+            boxShadow: "1px 1px 7px black",
+            cursor: "pointer",
+          }}
+        >
+          <h4>Get Secret Code</h4>
+        </button>
+        <div style={{ opacity: `${confirmation}`, position:'relative', bottom: "8rem"}}>
           <Confirmation text={alertText} color={alertColor} />
         </div>
       </form>
