@@ -16,10 +16,52 @@ const BookingForm = () => {
   const [confirmation, setConfirmation] = React.useState("none");
   const [connected_wallet, setConnectedWallet] = React.useState(null);
   const [secret, setSecret] = React.useState("");
+  const [bookingStatus, setBookingStatus] = React.useState("");
   const [alertColor, setAlertColor] = React.useState("");
   const [alertText, setAlertText] = React.useState("");
 
+  const send_to_que = async () => {
+  
+   
+      await supabase.from("delivery_queue").insert([
+        {
+          pickup: pickup_address_,
+          dropoff: dropoff_address_,
+          pickup_time: pickup_time_,
+          contact_number: phone_number_,
+          r_number: recipient_phone_number_,
+          id: `${
+            pickup_address_.slice(0, 2) +
+            pickup_address_.slice(0, 2) +
+            recipient_phone_number_.slice(0, 1)
+          }`,
+        },
+      ]);
+   
+    setAlertText(
+      `Please copy your secret code. You will need it to cancel or edit your delivery.Send this to your recipient in order to release your parcel.\n${secret}`
+    );
+    setSecret(
+      `${
+        pickup_address_.slice(0, 2) +
+        pickup_address_.slice(0, 2) +
+        recipient_phone_number_.slice(0, 3)
+      }`
+    );
+
+    setAlertColor("Black");
+    
+          setConfirmation("block");
+   
+    
+    
+
+    
+      
+  }
+
   const book_apex = async (e) => {
+    e.preventDefault();
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
@@ -36,50 +78,21 @@ const BookingForm = () => {
             value: "600000000000000",
           },
         ],
-      })
-      .then(async (e) => {
-        e.preventDefault();
-        await supabase.from("delivery_queue").insert([
-          {
-            pickup: pickup_address_,
-            dropoff: dropoff_address_,
-            pickup_time: pickup_time_,
-            contact_number: phone_number_,
-            r_number: recipient_phone_number_,
-            id: `${
-              pickup_address_.slice(0, 2) +
-              pickup_address_.slice(0, 2) +
-              recipient_phone_number_.slice(0, 1)
-            }`,
-          },
-        ]);
-        console.log("done");
-        setConfirmation("block");
-        setAlertText(
-          "Please copy your secret code. You will need it to cancel or edit your delivery.Send this to your recipient in order to rekease your parcel.\n${secret}"
-        );
-        setAlertColor("Black");
-
-        const showSecret = async () => {
-          setTimeout( () => {
-              setConfirmation("block");
-              setSecret(
-                `${
-                  pickup_address_.slice(0, 2) +
-                  pickup_address_.slice(0, 2) +
-                  recipient_phone_number_.slice(0, 1)
-                }`
-              );
-            
-          }, 3000);
-        };
+      }).then(send_to_que()).catch(err => console.log(err.message))
+    
+      /*.then( async (e) => {
+        
+    
+       
+     
+       
 
         showSecret();
       })
       .catch((error) => {
         console.log(error);
        window.alert(error.message);
-      });
+      })*/;
   };
 
   return (
@@ -163,7 +176,7 @@ const BookingForm = () => {
         >
           <h4>Confirm Apex</h4>
         </button>
-        <div style={{ display: `${confirmation}` }}>
+        <div style={{ display: `${confirmation}`, position:'relative', bottom: "8rem"}}>
           <Confirmation text={alertText} color={alertColor} />
         </div>
       </form>
