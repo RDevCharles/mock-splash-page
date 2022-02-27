@@ -5,50 +5,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
-  background-image: url("../src/components/assets/bg-image.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 a{
-  color:white;
+  color: black;
 }
 
-h1, h2 {
-  color: white;
-  font-family: 'Alfa Slab One', cursive;
-font-family: 'Righteous', cursive;
+li{
+  text-decoration: none;
+  list-style: none;
 }
 
-h3,h5, h6 {
-  color: white;
+p,h1, h2 {
+  font-family: 'Open Sans', sans-serif;
+}
 
+h3,h4,h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+  color:'white';
 }
 
 .input_{
   height:2rem;
   width:16rem;
-}
-
-
-button {
-  background-color: 'red';
-  border: 0;
-  height: 3rem;
-  width: 8rem;
-  border-radius:.2rem;
-  color: white;
-  box-shadow: 1px 1px 7px black;
-  cursor:pointer;
-}
-
-
-
-button:hover {
-
-  box-shadow: 1px 1px 3px black;
-
 }
 
 code {

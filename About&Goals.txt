@@ -1,0 +1,6 @@
+In this paper I will breaking down the features of this project and future goals in a way does not require the reading to be a savant in computer science.
+Favor is a task managing solution for founders that want to manage projects and communicate with team members using their wallet address as a unique identifier.
+
+The inspiration for this project came from a few friends complaining about not having team members to help grow their brand. So I'll start with our approach to solving that problem.
+Through The Chill (our office/ coworking space) we have met and maintained relationships with a wide range of people.
+From designers professional carpenters
